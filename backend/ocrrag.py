@@ -17,6 +17,9 @@ app = FastAPI()
 
 from inference import chatbotInference
 
+from ppaddleocr import OCRProcessor
+
+ocr_processor = OCRProcessor()
 
 
 UPLOAD_DIRECTORY = "uploads"
@@ -30,8 +33,8 @@ def save_upload_file(upload_file: UploadFile, destination: str):
         buffer.write(upload_file.file.read())
 
 # instance of chatbot
-token_path = "/workspace/mistral-7b-int4-chat_1.2/mistral7b_hf_tokenizer"
-engine_path = "/workspace/mistral-7b-int4-chat_1.2/trt_engines"
+token_path = "path to your model"
+engine_path = "path to your model engine"
 chatbot = chatbotInference(token_path,engine_path)
 
 
@@ -63,7 +66,14 @@ async def upload_images(file: UploadFile = File(...)):
     file_path = os.path.join(UPLOAD_DIRECTORY, file.filename)
     save_upload_file(file, file_path)
 
-    chatbot.createRetriever(file_path)
+
+    # extract text from image 
+    ocr_string = ocr_processor.process_image(file_path)
+
+
+
+
+    chatbot.createRetriever(ocr_string)
 
     print(f"Uploaded file: {file.filename}")
     return {"message": "Files uploaded successfully"}

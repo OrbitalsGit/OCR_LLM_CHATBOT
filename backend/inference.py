@@ -47,8 +47,9 @@ class chatbotInference:
     def createRetriever(self,file_path):
 
         text = ""
-        with open(file_path,'r') as file:
-            text = file.read()
+        text = file_path
+        """with open(file_path,'r') as file:
+            text = file.read()"""
 
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=10)
         documents = text_splitter.create_documents([text])

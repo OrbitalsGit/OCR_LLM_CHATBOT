@@ -1,6 +1,6 @@
-import PaddleOCR
-import cv2
 
+from paddleocr import PaddleOCR
+import cv2
 
 class OCRProcessor:
     def __init__(self, lang='en', use_angle_cls=True, use_space_char=True, show_log=False, enable_mkldnn=True):
@@ -8,7 +8,7 @@ class OCRProcessor:
 
     def process_image(self, img_path):
         img = cv2.imread(img_path, cv2.IMREAD_UNCHANGED)
-        cv2.imshow('Image', img)
+        #cv2.imshow('Image', img)
 
         result = self.ocr.ocr(img_path, cls=True)
 
@@ -18,6 +18,3 @@ class OCRProcessor:
 
         return ocr_string
 
-ocr_processor = OCRProcessor()
-ocr_string = ocr_processor.process_image('ocr2.jpg')
-print(ocr_string)

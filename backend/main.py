@@ -16,8 +16,8 @@ from langchain.memory import ConversationBufferMemory
 from trt_inference_api import CustomLLM 
 
 
-token_path = "/workspace/mistral-7b-int4-chat_1.2/mistral7b_hf_tokenizer"
-engine_path = "/workspace/mistral-7b-int4-chat_1.2/trt_engines"
+token_path = "/home/adebolajo/Desktop/trt-llm/mistral-7b-int4-chat_1.2/mistral7b_hf_tokenizer"
+engine_path = "/home/adebolajo/Desktop/trt-llm/mistral-7b-int4-chat_1.2/trt_engines"
 
 llm = CustomLLM(n=5,tokenizer_dir = token_path, engine_dir = engine_path)
 
